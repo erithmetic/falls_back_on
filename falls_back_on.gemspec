@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.version = "0.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Seamus", "Abshere", "Derek", "Kastner"]
+  s.authors = ["Seamus Abshere", "Derek Kastner"]
   s.date = %q{2010-07-13}
   s.description = %q{= falls_back_on
 
@@ -33,7 +33,13 @@ Copyright (c) 2010 Derek Kastner. See LICENSE for details.
     "LICENSE",
      "README.rdoc"
   ]
-  s.homepage = %q{http://github.com/brighterplanet/falls_back_on}
+  s.files = [
+    "lib/falls_back_on.rb",
+     "lib/falls_back_on/active_record_ext.rb",
+     "lib/falls_back_on/app/models/fallback.rb",
+     "rails/init.rb"
+  ]
+  s.homepage = %q{http://github.com/dkastner/falls_back_on}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
