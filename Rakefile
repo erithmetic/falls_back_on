@@ -10,7 +10,6 @@ end
 
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
-  gem.version = '0.0.1'
   gem.name = "falls_back_on"
   gem.summary = 'ActiveRecord extension to intelligently fall back on another column when a given column is unavailable'
   gem.description = File.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
