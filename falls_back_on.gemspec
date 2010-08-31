@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{falls_back_on}
-  s.version = "0.0.1"
+  s.version = "0.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Seamus Abshere", "Derek Kastner"]
-  s.date = %q{2010-07-13}
+  s.date = %q{2010-08-31}
   s.description = %q{= falls_back_on
 
 Description goes here.
@@ -44,6 +44,10 @@ Copyright (c) 2010 Derek Kastner. See LICENSE for details.
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{ActiveRecord extension to intelligently fall back on another column when a given column is unavailable}
+  s.test_files = [
+    "spec/lib/fallback_spec.rb",
+     "spec/spec_helper.rb"
+  ]
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
@@ -54,17 +58,23 @@ Copyright (c) 2010 Derek Kastner. See LICENSE for details.
       s.add_development_dependency(%q<rake>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, [">= 0"])
       s.add_development_dependency(%q<bundler>, [">= 0"])
+      s.add_development_dependency(%q<sqlite3-ruby>, [">= 0"])
+      s.add_development_dependency(%q<rspec>, [">= 2.0.0.beta.20"])
     else
       s.add_dependency(%q<activerecord>, [">= 0"])
       s.add_dependency(%q<rake>, [">= 0"])
       s.add_dependency(%q<jeweler>, [">= 0"])
       s.add_dependency(%q<bundler>, [">= 0"])
+      s.add_dependency(%q<sqlite3-ruby>, [">= 0"])
+      s.add_dependency(%q<rspec>, [">= 2.0.0.beta.20"])
     end
   else
     s.add_dependency(%q<activerecord>, [">= 0"])
     s.add_dependency(%q<rake>, [">= 0"])
     s.add_dependency(%q<jeweler>, [">= 0"])
     s.add_dependency(%q<bundler>, [">= 0"])
+    s.add_dependency(%q<sqlite3-ruby>, [">= 0"])
+    s.add_dependency(%q<rspec>, [">= 2.0.0.beta.20"])
   end
 end
 
