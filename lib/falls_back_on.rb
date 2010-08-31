@@ -8,6 +8,10 @@ module FallsBackOn
   end
 
   module InstanceMethods
+    def class_name
+      self.to_s
+    end
+
     def fallback
       Fallback.get_for(class_name)
     end
