@@ -27,7 +27,8 @@ class Fallback < ActiveRecord::Base
     end
     
     def destroy_for(name)
-      find_by_name(name).andand.destroy
+      fallback = find_by_name(name.to_s)
+      fallback.destroy unless fallback.nil?
       true
     end
   end
