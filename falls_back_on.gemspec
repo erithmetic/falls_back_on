@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{falls_back_on}
-  s.version = "0.0.2"
+  s.version = "0.0.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Seamus Abshere", "Derek Kastner"]
@@ -45,7 +45,8 @@ Copyright (c) 2010 Derek Kastner. See LICENSE for details.
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{ActiveRecord extension to intelligently fall back on another column when a given column is unavailable}
   s.test_files = [
-    "spec/lib/fallback_spec.rb",
+    "spec/lib/falls_back_on/app/models/fallback_spec.rb",
+     "spec/lib/falls_back_on_spec.rb",
      "spec/spec_helper.rb"
   ]
 
