@@ -27,6 +27,8 @@ Jeweler::Tasks.new do |gem|
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'jeweler'
   gem.add_development_dependency 'bundler'
+  gem.add_development_dependency 'sqlite3-ruby'
+  gem.add_development_dependency 'rspec', '>= 2.0.0.beta.20'
 end
 Jeweler::GemcutterTasks.new
 
