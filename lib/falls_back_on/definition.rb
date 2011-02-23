@@ -5,7 +5,7 @@ module FallsBackOn
     attr_reader :parent
     
     def initialize(parent)
-      @parent = parent
+      @parent = parent.to_s
     end
     
     def attrs=(attrs)
@@ -14,17 +14,23 @@ module FallsBackOn
     
     def attrs
       Storage.instance[parent].inject({}) do |memo, (k, v)|
-        memo[k] = case v
-        when Proc
-          v.call
-        else
-          v
-        end
+        memo[k] = calculate k
         memo
       end
     end
     lock_method :attrs
     cache_method :attrs
+        
+    def calculate(k)
+      v = Storage.instance[parent][k]
+      case v
+      when Proc
+        v.call
+      else
+        v
+      end
+    end
+    cache_method :calculate
     
     # for cache_method and lock_method
     def hash

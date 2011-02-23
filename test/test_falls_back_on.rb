@@ -80,4 +80,9 @@ class TestFallsBackOn < Test::Unit::TestCase
     
     blocker.kill
   end
+  
+  def test_caches_calculations_separately
+    definition = ::FallsBackOn::Definition.new Car3
+    definition.calculate :long_running_calculation
+  end
 end

@@ -7,13 +7,13 @@ module FallsBackOn
   autoload :Definition, 'falls_back_on/definition'
 
   def falls_back_on(attrs)
-    definition = ::FallsBackOn::Definition.new self.to_s
+    definition = ::FallsBackOn::Definition.new self
     definition.attrs = attrs
   end
   
   def fallback
     obj = new
-    definition = ::FallsBackOn::Definition.new self.to_s
+    definition = ::FallsBackOn::Definition.new self
     begin
       definition.attrs.each do |k, v|
         obj.send "#{k}=", v

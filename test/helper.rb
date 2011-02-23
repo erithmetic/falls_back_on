@@ -28,5 +28,13 @@ class Test::Unit::TestCase
   def setup
     CacheMethod.config.storage.flush
     LockMethod.config.storage.flush
+    @old_abort_on_exception = Thread.abort_on_exception
+    Thread.abort_on_exception = true
+  end
+  
+  def teardown
+    Thread.abort_on_exception = @old_abort_on_exception
   end
 end
+
+ENV['FALLS_BACK_ON_DEBUG'] = 'true'
