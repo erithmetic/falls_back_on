@@ -14,8 +14,14 @@ module FallsBackOn
   def fallback
     obj = new
     definition = ::FallsBackOn::Definition.new self.to_s
-    definition.attrs.each do |k, v|
-      obj.send "#{k}=", v
+    begin
+      definition.attrs.each do |k, v|
+        obj.send "#{k}=", v
+      end
+    rescue ::LockMethod::Locked
+      $stderr.puts "#{self.to_s} was locked, retrying in 0.5 seconds..."
+      sleep 0.5
+      retry
     end
     obj
   end

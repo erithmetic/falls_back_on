@@ -69,21 +69,15 @@ class TestFallsBackOn < Test::Unit::TestCase
     assert_equal random_number, Car1.fallback.random_number
   end
   
-  def test_lock
+  def test_retries_if_lock
     blocker = Thread.new { Car3.fallback.long_running_calculation }
-    
-    sleep 0.5
-    
-    # lock won't have expired
-    
-    assert_raises(::LockMethod::Locked) do
-      Car3.fallback.long_running_calculation
+
+    assert_raises(::Timeout::Error) do
+      ::Timeout.timeout(2) do
+        Car3.fallback.long_running_calculation
+      end
     end
     
     blocker.kill
-    
-    assert_nothing_raised do
-      Car3.fallback.long_running_calculation
-    end
   end
 end
