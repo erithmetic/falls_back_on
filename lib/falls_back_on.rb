@@ -21,6 +21,6 @@ module FallsBackOn
   end
 end
 
-if defined?(::ActiveRecord::Base) and not ::ActiveRecord::Base.method_defined?(:falls_back_on)
-  ::ActiveRecord::Base.extend ::FallsBackOn
+unless ::Class.method_defined?(:falls_back_on)
+  ::Class.send :include, ::FallsBackOn
 end

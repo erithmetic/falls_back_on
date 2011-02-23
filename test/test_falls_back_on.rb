@@ -1,7 +1,6 @@
 require 'helper'
 
 class Car1
-  extend FallsBackOn
   attr_accessor :fuel
   attr_accessor :random_number
   attr_accessor :some_place_in_the_mall
