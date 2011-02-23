@@ -2,10 +2,20 @@ module FallsBackOn
   class Definition
     autoload :Storage, 'falls_back_on/definition/storage'
     
+    def self.all
+      Storage.instance.keys.map { |parent| new parent }
+    end
+    
     attr_reader :parent
     
     def initialize(parent)
       @parent = parent.to_s
+    end
+    
+    def clear
+      clear_method_cache :calculate
+      clear_method_cache :attrs
+      clear_lock :attrs
     end
     
     def attrs=(attrs)

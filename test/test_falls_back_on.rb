@@ -71,18 +71,38 @@ class TestFallsBackOn < Test::Unit::TestCase
   
   def test_retries_if_lock
     blocker = Thread.new { Car3.fallback.long_running_calculation }
-
+  
     assert_raises(::Timeout::Error) do
-      ::Timeout.timeout(2) do
+      Timeout.timeout(2) do
         Car3.fallback.long_running_calculation
       end
     end
     
-    blocker.kill
+    blocker.join
   end
   
   def test_caches_calculations_separately
     definition = ::FallsBackOn::Definition.new Car3
     definition.calculate :long_running_calculation
+  end
+  
+  def test_clear
+    # sanity check
+    assert_nothing_raised do
+      Timeout.timeout(4) do
+        blocker = Thread.new { Car3.fallback.long_running_calculation }
+        sleep 1
+        Car3.fallback.long_running_calculation
+      end
+    end
+    
+    assert_raises(Timeout::Error) do
+      Timeout.timeout(4) do
+        blocker = Thread.new { Car3.fallback.long_running_calculation }
+        sleep 1
+        clearer = Thread.new { ::FallsBackOn.clear }
+        Car3.fallback.long_running_calculation
+      end
+    end
   end
 end

@@ -6,6 +6,10 @@ require 'falls_back_on/version'
 module FallsBackOn
   autoload :Definition, 'falls_back_on/definition'
 
+  def self.clear
+    ::FallsBackOn::Definition.all.each { |definition| definition.clear }
+  end
+  
   def falls_back_on(attrs)
     definition = ::FallsBackOn::Definition.new self
     definition.attrs = attrs
