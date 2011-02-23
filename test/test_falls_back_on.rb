@@ -33,6 +33,11 @@ Car2.create_table
 Car2.create! :efficiency => 10.0, :popularity => 1_000_000
 Car2.create! :efficiency => 1.0, :popularity => 1
 
+class Car3
+  attr_accessor :long_running_calculation
+  falls_back_on :long_running_calculation => lambda { sleep 3 }
+end
+
 class TestFallsBackOn < Test::Unit::TestCase
   def test_fallback
     assert_equal 'gasoline', Car1.fallback.fuel
@@ -56,5 +61,29 @@ class TestFallsBackOn < Test::Unit::TestCase
   
   def test_weighted_average
     assert_equal 10, Car2.fallback.efficiency2.round
+  end
+  
+  def test_cache
+    random_number = Car1.fallback.random_number
+    assert_equal random_number, Car1.fallback.random_number
+    assert_equal random_number, Car1.fallback.random_number
+  end
+  
+  def test_lock
+    blocker = Thread.new { Car3.fallback.long_running_calculation }
+    
+    sleep 0.5
+    
+    # lock won't have expired
+    
+    assert_raises(::LockMethod::Locked) do
+      Car3.fallback.long_running_calculation
+    end
+    
+    blocker.kill
+    
+    assert_nothing_raised do
+      Car3.fallback.long_running_calculation
+    end
   end
 end

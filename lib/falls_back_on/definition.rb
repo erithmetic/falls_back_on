@@ -23,5 +23,12 @@ module FallsBackOn
         memo
       end
     end
+    lock_method :attrs
+    cache_method :attrs
+    
+    # for cache_method and lock_method
+    def hash
+      parent.hash
+    end
   end
 end

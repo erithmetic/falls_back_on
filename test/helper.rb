@@ -9,8 +9,6 @@ require 'memcached'
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'falls_back_on'
-class Test::Unit::TestCase
-end
 
 # thanks authlogic!
 ActiveRecord::Schema.verbose = false
@@ -23,3 +21,10 @@ end
 my_client = Memcached.new
 CacheMethod.config.storage = my_client
 LockMethod.config.storage = my_client
+
+class Test::Unit::TestCase
+  def setup
+    CacheMethod.config.storage.flush
+    LockMethod.config.storage.flush
+  end
+end
