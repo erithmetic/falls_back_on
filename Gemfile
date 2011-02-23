@@ -1,1 +1,4 @@
-gemspec :path => File.dirname(__FILE__)
+source "http://rubygems.org"
+
+# Specify your gem's dependencies in falls_back_on.gemspec
+gemspec
