@@ -23,6 +23,7 @@ module FallsBackOn
     end
     
     def attrs
+      return {} unless Storage.instance[parent].is_a?(::Hash)
       Storage.instance[parent].inject({}) do |memo, (k, v)|
         memo[k] = calculate k
         memo

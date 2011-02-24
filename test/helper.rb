@@ -20,12 +20,12 @@ rescue ArgumentError
   ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :dbfile => ":memory:")
 end
 
-my_client = Memcached.new
-CacheMethod.config.storage = my_client
-LockMethod.config.storage = my_client
+$my_client = Memcached.new
 
 class Test::Unit::TestCase
   def setup
+    CacheMethod.config.storage = $my_client
+    LockMethod.config.storage = $my_client
     CacheMethod.config.storage.flush
     LockMethod.config.storage.flush
     @old_abort_on_exception = Thread.abort_on_exception

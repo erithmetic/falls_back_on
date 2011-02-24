@@ -38,6 +38,13 @@ class Car3
   falls_back_on :long_running_calculation => lambda { sleep 3 }
 end
 
+class Car4
+  attr_accessor :fuel
+  def ==(other)
+    self.fuel == other.fuel
+  end
+end
+
 class TestFallsBackOn < Test::Unit::TestCase
   def test_fallback
     assert_equal 'gasoline', Car1.fallback.fuel
@@ -96,6 +103,10 @@ class TestFallsBackOn < Test::Unit::TestCase
       end
     end
     
+    # 3 seconds every time.
+    # start it, wait a second, clear fallbacks (and therefore any locks)
+    # you would expect it to completely restart, taking another 3 seconds
+    # so it will time out after 4 seconds
     assert_raises(Timeout::Error) do
       Timeout.timeout(4) do
         blocker = Thread.new { Car3.fallback.long_running_calculation }
@@ -104,5 +115,15 @@ class TestFallsBackOn < Test::Unit::TestCase
         Car3.fallback.long_running_calculation
       end
     end
+  end
+  
+  def test_no_memcached
+    CacheMethod.config.storage = nil
+    LockMethod.config.storage = nil
+    assert_equal 5.5, Car2.fallback.efficiency
+  end
+  
+  def test_no_definition
+    assert_equal Car4.new, Car4.fallback
   end
 end
