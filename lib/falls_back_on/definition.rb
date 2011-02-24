@@ -15,7 +15,7 @@ module FallsBackOn
     def clear
       clear_method_cache :calculate
       clear_method_cache :attrs
-      clear_lock :attrs
+      clear_method_lock :attrs
     end
     
     def attrs=(attrs)
