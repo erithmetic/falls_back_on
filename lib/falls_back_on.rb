@@ -23,7 +23,7 @@ module FallsBackOn
         obj.send "#{k}=", v
       end
     rescue ::LockMethod::Locked
-      $stderr.puts "#{self.to_s} was locked, retrying in 0.5 seconds..."
+      $stderr.puts "#{self.to_s} fallback calculation was locked, retrying in 0.5 seconds..." if ::ENV['FALLS_BACK_ON_DEBUG'] == 'true'
       sleep 0.5
       retry
     end

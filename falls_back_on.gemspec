@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   
   s.add_dependency 'cache_method'
-  s.add_dependency 'lock_method'
+  s.add_dependency 'lock_method', '>=0.1.1'
   s.add_development_dependency 'test-unit'
   s.add_development_dependency 'memcached'
   s.add_development_dependency 'activerecord'
