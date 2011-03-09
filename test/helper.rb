@@ -7,7 +7,9 @@ require 'active_support/all'
 require 'weighted_average'
 require 'memcached'
 require 'timeout'
-require 'ruby-debug'
+if ENV['RUBY_DEBUG']
+  require 'ruby-debug'
+end
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'falls_back_on'
