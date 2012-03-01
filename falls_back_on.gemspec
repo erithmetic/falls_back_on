@@ -19,8 +19,8 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
   
-  s.add_dependency 'cache_method'
-  s.add_dependency 'lock_method', '>=0.1.1'
+  s.add_dependency 'cache_method', '>=0.2.0'
+  s.add_dependency 'lock_method', '>=0.4.0'
   s.add_development_dependency 'test-unit'
   s.add_development_dependency 'memcached'
   s.add_development_dependency 'activerecord'

@@ -13,9 +13,9 @@ module FallsBackOn
     end
     
     def clear
-      clear_method_cache :calculate
-      clear_method_cache :attrs
-      clear_method_lock :attrs
+      cache_method_clear :calculate
+      cache_method_clear :attrs
+      lock_method_clear :attrs
     end
     
     def attrs=(attrs)
@@ -43,9 +43,13 @@ module FallsBackOn
     end
     cache_method :calculate
     
-    # for cache_method and lock_method
-    def hash
-      parent.hash
+    # for lock_method
+    def as_lock
+      parent
+    end
+    # for cache_method
+    def as_cache_key
+      parent
     end
   end
 end
